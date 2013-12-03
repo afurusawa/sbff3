@@ -1,0 +1,51 @@
+doctype 5
+html
+	head
+		title CAVP Tool
+		
+		link(rel='stylesheet', href='jquery-ui.css')
+		script(src='jquery-1.9.1.js')
+		script(src='jquery-ui-1.10.3.custom.js')
+		script(src='/socket.io/socket.io.js')
+		script(src='http://code.jquery.com/jquery-1.9.1.js')
+		script(src='http://code.jquery.com/ui/1.10.3/jquery-ui.js')
+		
+		script.
+			
+			// Global Variables
+			var socket = io.connect('http://' + location.hostname + ':4000');
+			
+			$("document").ready(function() {	
+				$("#progressbar").progressbar({
+					value: 0
+				});
+			});	
+
+			function uploadClicked() {
+				alert("hello")
+			}
+			
+			
+			socket.on("invalidFile", function() {
+				alert('Bad File Type and/or Format. Please try again.')
+			});
+
+			
+
+
+		
+	body
+
+		div
+			h1 Upload Vectors
+			form(id="uploadForm", enctype="multipart/form-data", action="/upload", method="post")
+				input(type="file", id="fileInput", name="uploadFile")
+				input(type="submit", value="Submit", onclick="uploadClicked()")
+			br
+			div(id="progressbar")
+	
+		div
+			// maybe have app.js poll the vcoreserver to see if results are out?
+			h1 Download Results
+				form(id="uploadForm", enctype="multipart/form-data", action="/download", method="post")
+				input(type="submit", value="Ready", onclick="test()")
